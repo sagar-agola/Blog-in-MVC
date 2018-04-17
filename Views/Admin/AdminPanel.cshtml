@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "AdminPanel";
+}
+@{
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2 class="page-header">AdminPanel</h2>
+<div class="row">
+    <div class="col-md-4">
+        <ul>
+            <li>@Html.ActionLink("Posts", "ListAllPosts", "Admin")</li>
+            <li>@Html.ActionLink("Users", "ListAllUsers", "Admin")</li>
+        </ul>
+    </div>
+    <div class="col-md-8"></div>
+</div>

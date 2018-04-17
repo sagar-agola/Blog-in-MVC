@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Blog.Models.Temp>
+@{
+    ViewBag.Title = "Home Page";
+}
+<p>
+    @if (Session ["Role"] != null)
+    {
+        if (Session ["Role"].ToString () == "Admin")
+        {
+            @Html.ActionLink("Create New", "Create")
+        }
+    }
+</p>
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        @Html.DisplayFor(modelItem => item.PostName)
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    @Html.DisplayFor(modelitem => item.PostDetails)
+                </div>
+                <div class="panel-footer">
+                    <small>Created by <b>Sagar Agola</b> on @Html.DisplayFor(modelItem => item.PostTime)</small><br />
+                    <small><b>@Html.DisplayFor(modelItem => item.CommentsList.Count)</b> Peoples commented on this post.</small><br />
+                    @Html.ActionLink("Details", "Details", new { id = item.PostID })
+                    @if (Session ["Role"] != null)
+                    {
+                        if (Session ["Role"].ToString () == "Admin")
+                        {
+                            <span> | </span>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.PostID })<span> | </span>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.PostID })
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>}
+
+@*<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAr3wUd2BFaTlCo1P7-TWPECtO-3M2Tmu8",
+    authDomain: "mvc-blog-54b63.firebaseapp.com",
+    databaseURL: "https://mvc-blog-54b63.firebaseio.com",
+    projectId: "mvc-blog-54b63",
+    storageBucket: "",
+    messagingSenderId: "664236215412"
+  };
+  firebase.initializeApp(config);
+</script>*@

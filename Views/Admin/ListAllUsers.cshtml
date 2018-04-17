@@ -1,0 +1,41 @@
+﻿@using Blog.Models
+@model IEnumerable<Account>
+
+@{
+    ViewBag.Title = "ListAllUsers";
+}
+@{
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+<h2>ListAllUsers</h2>
+<div class="row">
+    <div class="col-md-4">
+        <ul>
+            <li>@Html.ActionLink("Posts", "ListAllPosts", "Admin")</li>
+            <li>@Html.ActionLink("Users", "ListAllUsers", "Admin")</li>
+        </ul>
+    </div>
+    <div class="col-md-8">
+        <table class="table table-condensed">
+            <tr>
+                <td>
+                    <b>UserName</b>
+                </td>
+                <td>
+                    <b>Password</b>
+                </td>
+                <td>
+                    <b>Role</b>
+                </td>
+            </tr>
+            @foreach (Account account in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => account.UserName)</td>
+                    <td>@Html.DisplayFor(modelItem => account.Password)</td>
+                    <td>@Html.DisplayFor(modelItem => account.Role)</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

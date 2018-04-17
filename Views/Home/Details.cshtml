@@ -1,0 +1,70 @@
+﻿@using Blog.Models
+
+@model Blog.Models.Temp
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="page-header">@Html.DisplayFor(model => model.PostName)</h2>
+
+<div>
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            @Html.DisplayFor(model => model.PostDetails)
+        </div>
+        <div class="panel-footer">
+            <small>
+                Created by <b>Sagar Agola</b> on @Html.DisplayFor(model => model.PostTime)<br />
+            </small>
+        </div>
+    </div>  
+    <hr />
+    <h3>
+        <b>Comment Section</b>
+    </h3>
+      
+    @foreach (Comment cmt in Model.CommentsList)
+    {
+        if (!string.IsNullOrEmpty (cmt.UserName))
+        {
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-6">
+                        Auther      : @cmt.UserName<br />
+                        Time Posted : @cmt.Time<br />
+                        Comment     : @cmt.CommentBody<br />
+                    </div>
+                    <div class="col-md-2">
+                        @if (Session ["Role"] != null)
+                        {
+                            if (Session ["Role"].ToString () == "Admin")
+                            {
+                                @Html.ActionLink("Delete", "DeleteComment"@*, new { id = Model.CommentsList[0].ID}*@)
+                            }
+                        }
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+        }
+    }
+    <div class="form-horizontal">
+        <h4>Leave a Comment...</h4>
+        <hr />
+@using (Html.BeginForm("Details","Home", FormMethod.Post))
+{
+    @Html.HiddenFor(m=>m.PostID)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger"})
+    <div class="form-group">
+        @Html.TextBoxFor(m => m.CommentsList [0].UserName, new { @class = "form-control", @placeholder = "UserName", @autocompleate = "false"})
+    </div>
+    <div class="form-group">
+        @Html.TextAreaFor(m => m.CommentsList [0].CommentBody, new { @class = "form-control", @placeholder = "Comment", @autocompleate = "false" })
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-default" />
+    </div>
+}
+    </div>
+</div>
